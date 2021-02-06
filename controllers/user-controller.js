@@ -9,7 +9,8 @@ const userController = {
             //     path: 'comments',
             //     select: '-__v'
             // })
-            // .select('-__v')
+            // removes __v version from query
+            .select('-__v')
             // .sort({ _id: -1 })
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
@@ -23,9 +24,8 @@ const userController = {
         User.findOne({ _id: params.id })
             // .populate({
             //     path: 'comments',
-            //     select: '-__v'
             // })
-            //.select('-__v')
+            .select('-__v')
             .then(dbUserData => {
                 // If no User is found, send 404
                 if (!dbUserData) {
@@ -68,7 +68,8 @@ const userController = {
                 res.status(404).json({ message: 'No user found with this id!'});
                 return;
             }
-            res.json(dbUserData);
+            //res.json(dbUserData);
+            res.json({message: "User deleted!"})
         })
         .catch(err => res.status(400).json(err));
     }

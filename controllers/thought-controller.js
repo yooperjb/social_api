@@ -9,7 +9,7 @@ const thoughtController = {
             //     path: 'comments',
             //     select: '-__v'
             // })
-            // .select('-__v')
+            .select('-__v')
             // .sort({ _id: -1 })
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
@@ -25,7 +25,7 @@ const thoughtController = {
             //     path: 'comments',
             //     select: '-__v'
             // })
-            //.select('-__v')
+            .select('-__v')
             .then(dbThoughtData => {
                 // If no Thought is found, send 404
                 if (!dbThoughtData) {
