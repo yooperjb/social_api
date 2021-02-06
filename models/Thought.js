@@ -37,6 +37,7 @@ const ThoughtSchema = new Schema({
         // formate date using dataFormat() function
         //get: (createdAtVal) => dateFormat(createdAtVal)
     },
+    // which user created the thought
     username: {
         type: String,
         required: true,
