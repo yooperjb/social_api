@@ -1,5 +1,7 @@
 // import Schema and model from mongoose
 const { Schema, model, Types } = require('mongoose');
+//const dateFormat = require('../utils/dateFormat');
+const moment = require('moment');
 
 const ReactionSchema = new Schema({
     reactionId: {
@@ -18,9 +20,17 @@ const ReactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // use getter method to format timestamp
-        //get: createdAtVal => dateFormat(createdAtVal)
+        // format date using moment
+        get: (createdAtVal) => moment(createdAtVal).format('dddd, MMMM do YYYY, h:mm:ss a')
     }
+},    
+{
+    toJSON : {
+        virtuals: true,
+        getters: true
+    },
+    // set id to false since we don't need it for virtual
+    id: false
 });
 
 const ThoughtSchema = new Schema({
@@ -34,8 +44,8 @@ const ThoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // formate date using dataFormat() function
-        //get: (createdAtVal) => dateFormat(createdAtVal)
+        // format date using moment
+        get: (createdAtVal) => moment(createdAtVal).format('dddd, MMMM do YYYY, h:mm:ss a')
     },
     // which user created the thought
     username: {
@@ -50,6 +60,7 @@ const ThoughtSchema = new Schema({
             virtuals: true,
             getters: true
         },
+        // set id to false since we don't need it for virtual
         id: false
     }
 );

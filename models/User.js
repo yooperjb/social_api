@@ -33,6 +33,7 @@ const UserSchema = new Schema({
         virtuals: true,
         getters: true
     },
+    // set id to false since we don't need it for virtual
     id: false
 }
 );

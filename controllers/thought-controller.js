@@ -1,4 +1,6 @@
 const { Thought, User } = require('../models');
+const { findOneAndUpdate } = require('../models/User');
+const { Types } = require('mongoose');
 
 // create thoughController object
 const thoughtController = {
@@ -40,27 +42,27 @@ const thoughtController = {
             });
     },
 
-    // create Thought add to user
+    // create Thought add to user with userid
     createThought({ params, body }, res) {
-        //console.log("Body: ", body);
-        //console.log("Params: ", params);
         
+        // create custom id to pass with thought
+        const thoughtId = new Types.ObjectId();
         
-        Thought.create(body)
-        .then(({ _id }) => {
-            //console.log("_id:", _id)
-            return User.findOneAndUpdate(
-                { _id: params.userId },
-                { $push: { thoughts: _id } },
-                { new: true }
-            );
-        })
+        // find the user associated with the thought
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $push: { thoughts: thoughtId } },
+            { new: true }
+        )
         .then(dbUserData => {
             if (!dbUserData){
                 res.status(404).json({ message: 'No User found with this id!' });
                 return;
             }
-            res.json(dbThoughtData);
+           return Thought.create({...body, _id:thoughtId, username:dbUserData.username})
+        })
+        .then(newThought=> {
+            res.json(newThought);
         })
         .catch(err => res.status(400).json(err));
     },
