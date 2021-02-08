@@ -17,7 +17,7 @@ An example video walking through the different routes in Insomnia can be viewed 
 
 ### <a name=npm></a>NPM Packages
 * [express](https://expressjs.com/) - web application framework
-* [mongoose](https://mongoosejs.com/) - mongodb object modeling for noode.js
+* [mongoose](https://mongoosejs.com/) - mongodb object modeling for node.js
 * [moment](https://momentjs.com/) - date/time formatter
 
 ***
